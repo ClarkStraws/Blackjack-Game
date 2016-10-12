@@ -1,8 +1,9 @@
 #include <stdafx.h>
 #include "SFML/Graphics.hpp"
 #include <SFML\Window\Event.hpp>
-#include <time.h>
 #include <iostream>
+
+
 
 int randHeightPick();
 int randWidthPick();
@@ -10,10 +11,12 @@ int randHeightPick2();
 int randWidthPick2();
 int randHeightPick3();
 int randWidthPick3();
+int playerCardOneScore(int playerScore);
 
-int cardWidth[]{ 0, 79, 158, 237, 316, 395, 474, 553, 632, 711, 790, 869, 948, 1027 };
+//               A  2   3    4    5    6    7    8     9    10   J    Q    K
+int cardWidth[]{ 0, 79, 158, 237, 316, 395, 474, 553, 632, 711, 790, 869, 948 };
 
-int cardHeight[]{ 0, 123, 246, 369, 492 };
+int cardHeight[]{ 0, 123, 246, 369 };
 
 
 int main(int argc, char ** argv) {
@@ -26,8 +29,10 @@ int main(int argc, char ** argv) {
 
     cardX1 = cardWidth[randWidthPick()];
     cardX2 = cardWidth[randWidthPick2()];
+    cardX3 = cardWidth[randWidthPick3()];
     cardY1 = cardHeight[randHeightPick()];
     cardY2 = cardHeight[randHeightPick2()];
+    cardY3 = cardHeight[randHeightPick3()];
 
     sf::RenderWindow renderWindow(sf::VideoMode(1000, 720), "Blackjack");
 
@@ -43,6 +48,20 @@ int main(int argc, char ** argv) {
     sf::Sprite cardImage2(cards, rectSourceCards2);
     cardImage2.setPosition(250, 150);
 
+    sf::IntRect rectSourceCards3(cardX3, cardY3, 79, 123);                  
+    sf::Sprite cardImage3(cards, rectSourceCards3);
+    cardImage3.setColor(sf::Color::Black);
+  
+    sf::Font font;
+    font.loadFromFile("fonts/CoffeeTin Initials.ttf");
+  
+    sf::Text text("Press Space to Hit", font);
+    text.setCharacterSize(30);
+    text.setStyle(sf::Text::Bold);
+    text.setPosition(350, 0);
+
+    std::cout << playerCardOneScore();  // FIXME: Can't get right values for PCOS
+
     while (renderWindow.isOpen()) {
         while (renderWindow.pollEvent(event)) {
 
@@ -54,19 +73,11 @@ int main(int argc, char ** argv) {
 
             case sf::Event::KeyPressed:
 
-                if (event.key.code == sf::Keyboard::Y) {
+                if (event.key.code == sf::Keyboard::Space) {
 
-                    cardX3 = cardWidth[randWidthPick3()];
-                    cardY3 = cardHeight[randHeightPick3()];
-
-                    sf::IntRect rectSourceCards3(cardX3, cardY3, 79, 123);
-                    sf::Sprite cardImage3(cards, rectSourceCards3);
-                    cardImage3.setPosition(300, 100);
-
-                    renderWindow.draw(cardImage3);
+                  cardImage3.setColor(sf::Color::White);
+                  cardImage3.setPosition(300, 100);
                 }
-                break;
-            default:
                 break;
             }
         }
@@ -74,9 +85,13 @@ int main(int argc, char ** argv) {
         renderWindow.clear(sf::Color(0, 160, 55, 0));
         renderWindow.draw(cardImage1);
         renderWindow.draw(cardImage2);
+        renderWindow.draw(cardImage3);
+        renderWindow.draw(text);
         renderWindow.display();
     }
 }
+
+
 
  
 
