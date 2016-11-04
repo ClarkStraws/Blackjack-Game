@@ -2,37 +2,28 @@
 #include "SFML/Graphics.hpp"
 #include <SFML\Window\Event.hpp>
 #include <iostream>
+#include "OtherStuff.h"
 
+//           A  2   3    4    5    6    7    8     9    10   J    Q    K
+int cardX[]{ 0, 79, 158, 237, 316, 395, 474, 553, 632, 711, 790, 869, 948 };
+//           C   D    H    S
+int cardY[]{ 0, 123, 246, 369 };
 
-
-int randHeightPick();
-int randWidthPick();
-int randHeightPick2();
-int randWidthPick2();
-int randHeightPick3();
-int randWidthPick3();
-int playerCardOneScore(int playerScore);
-
-//               A  2   3    4    5    6    7    8     9    10   J    Q    K
-int cardWidth[]{ 0, 79, 158, 237, 316, 395, 474, 553, 632, 711, 790, 869, 948 };
-
-int cardHeight[]{ 0, 123, 246, 369 };
-
+//RANK EQUALS Y, SUIT EQUALS X
 
 int main(int argc, char ** argv) {
-    int cardX1 = 0;
-    int cardX2 = 0;
-    int cardX3 = 0;
-    int cardY1 = 0;
-    int cardY2 = 0;
-    int cardY3 = 0;
+ 
+    Cards card1;
+    Cards card2;
+    Cards card3;
 
-    cardX1 = cardWidth[randWidthPick()];
-    cardX2 = cardWidth[randWidthPick2()];
-    cardX3 = cardWidth[randWidthPick3()];
-    cardY1 = cardHeight[randHeightPick()];
-    cardY2 = cardHeight[randHeightPick2()];
-    cardY3 = cardHeight[randHeightPick3()];
+    card1.setRank(cardY[randYPick()]);
+    card2.setRank(cardY[randYPick()]);
+    card3.setRank(cardY[randYPick()]);
+
+    card1.setSuit(cardX[randXPick()]);
+    card2.setSuit(cardX[randXPick()]);
+    card3.setSuit(cardX[randXPick()]);
 
     sf::RenderWindow renderWindow(sf::VideoMode(1000, 720), "Blackjack");
 
@@ -40,15 +31,15 @@ int main(int argc, char ** argv) {
     sf::Texture cards;
     cards.loadFromFile("images/cards.png");
 
-    sf::IntRect rectSourceCards(cardX1, cardY1, 79, 123);
+    sf::IntRect rectSourceCards(card1.getSuit(), card1.getRank(), 79, 123);
     sf::Sprite cardImage1(cards, rectSourceCards);
     cardImage1.setPosition(200, 200);
 
-    sf::IntRect rectSourceCards2(cardX2, cardY2, 79, 123);
+    sf::IntRect rectSourceCards2(card2.getSuit(), card2.getRank(), 79, 123);
     sf::Sprite cardImage2(cards, rectSourceCards2);
     cardImage2.setPosition(250, 150);
 
-    sf::IntRect rectSourceCards3(cardX3, cardY3, 79, 123);                  
+    sf::IntRect rectSourceCards3(card3.getSuit(), card3.getRank(), 79, 123);
     sf::Sprite cardImage3(cards, rectSourceCards3);
     cardImage3.setColor(sf::Color::Black);
   
@@ -59,8 +50,6 @@ int main(int argc, char ** argv) {
     text.setCharacterSize(30);
     text.setStyle(sf::Text::Bold);
     text.setPosition(350, 0);
-
-    std::cout << playerCardOneScore();  // FIXME: Can't get right values for PCOS
 
     while (renderWindow.isOpen()) {
         while (renderWindow.pollEvent(event)) {

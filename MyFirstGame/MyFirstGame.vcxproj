@@ -156,6 +156,7 @@
     <ClInclude Include="..\..\..\..\..\SFML\include\SFML\Graphics.hpp" />
     <ClInclude Include="..\..\..\..\..\SFML\include\SFML\Window\Event.hpp" />
     <ClInclude Include="..\..\..\..\..\SFML\include\SFML\Window\Window.hpp" />
+    <ClInclude Include="OtherStuff.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
   </ItemGroup>

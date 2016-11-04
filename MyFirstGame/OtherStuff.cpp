@@ -1,81 +1,61 @@
-#include <stdafx.h>
-#include "SFML/Graphics.hpp"
+#include "stdafx.h"
 #include <iostream>
 #include <stdlib.h>
 #include <time.h>
+#include "OtherStuff.h"
 
-int randWidthPick(){
+int randXPick(){
     srand(time(NULL));
 
     int answerX = rand() % 12;
     return answerX;
 }
 
-int randWidthPick2() {
-    
-    int answerX = rand() % 12;
-    return answerX;
-}
-
-int randWidthPick3() {
-
-    int answerX = rand() % 12;
-    return answerX;
-}
-
-int randHeightPick() {
+int randYPick() {
     srand(time(NULL));
 
     int answerY = rand() % 3;
     return answerY;
 }
 
-int randHeightPick2() {
+Cards::Cards() {
+        x = 0;
+        y = 0;
+    }
 
-    int answerY = rand() % 3;
-    return answerY;
-}
+void Cards::rank(int yVal) {
+        y = yVal;
+        return;
+    }
 
-int randHeightPick3() {
+void Cards::suit(int xVal) {
+        x = xVal;
+        return;
+    }
 
-    int answerY = rand() % 3;
-    return answerY;
-}
+int Cards::getRank() {
+        return y;
+    }
 
-int playerCardOneScore(int playerScore) {
-    int playerRunningScore = 0;
+int Cards::getSuit() {
+        return x;
+    }
 
-    if (playerScore == 0) {
-        playerRunningScore = 11;
+void Cards::setRank(int yVal) {
+        y = yVal;
+        return;
     }
-    if (playerScore == 1) {
-        playerRunningScore = 2;
-    }
-    if (playerScore == 2) {
-        playerRunningScore = 3;
-    }
-    if (playerScore == 3) {
-        playerRunningScore = 4;
-    }
-    if (playerScore == 4) {
-        playerRunningScore = 5;
-    }
-    if (playerScore == 5) {
-        playerRunningScore = 6;
-    }
-    if (playerScore == 6) {
-        playerRunningScore = 7;
-    }
-    if (playerScore == 7) {
-        playerRunningScore = 8;
-    }
-    if (playerScore == 8) {
-        playerRunningScore = 9;
-    }
-    if (playerScore == 9 || playerScore == 10
-       || playerScore == 11 || playerScore == 12) {
 
-        playerRunningScore = 10;
+void Cards::setSuit(int xVal) {
+        x = xVal;
+        return;
     }
-    return playerRunningScore;
-}
+
+int Cards::getScore() {
+        return score;
+    }
+
+void Cards::setScore(int newScore) {
+        score = newScore;
+        return;
+    }
